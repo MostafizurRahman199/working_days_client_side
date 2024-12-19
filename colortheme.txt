@@ -1,9 +1,9 @@
 The color theme used in this design includes the following:
 
 Background
-Gradient: bg-gradient-to-r from-purple-500 via-pink-500 to-red-500
+color: bg-gradient-to-r from-purple-500 via-pink-500 to-red-500
 Text and Inputs
-Text Color: text-gray-800
+bg : bg-[#17153B]
 Input Background: bg-gray-100 (editable inputs), bg-gray-200 (read-only inputs)
 Input Focus Effects: focus:border-purple-500, focus:ring-purple-200
 Buttons

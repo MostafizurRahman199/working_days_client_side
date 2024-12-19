@@ -4,10 +4,12 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { AuthContext } from '../providers/AuthProvider'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 
 const AddJob = () => {
 
   const { user} = useContext(AuthContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     job_title: '',
     deadline: new Date(),
@@ -18,6 +20,8 @@ const AddJob = () => {
     jobOwnerEmail: user?.email,
     jobOwnerName : user?.displayName,
     jobOwnerImageUrl : user?.photoURL,
+    createdAt : new Date(),
+    totalBid : 0,
 
   })
 
@@ -53,9 +57,19 @@ const AddJob = () => {
             confirmButtonText: 'OK',
             position: 'top-center',
           });
+
         }
+        navigate("/my-posted-jobs");
     } catch (error) {
         console.error('Error submitting job:', error);
+        Swal.fire({
+          title: 'Error!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonText: 'OK',
+          position: 'top-center',
+        });
+
     }
 
     setFormData({
@@ -68,8 +82,11 @@ const AddJob = () => {
       jobOwnerEmail: user?.email,
       jobOwnerName : user?.displayName,
       jobOwnerImageUrl : user?.photoURL,
+      createdAt : new Date(),
+      totalBid : 0,
+  
     })
-    console.log(dataToSubmit)
+    // console.log(dataToSubmit)
   }
 
   return (

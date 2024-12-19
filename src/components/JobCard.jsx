@@ -1,39 +1,40 @@
-/* eslint-disable react/prop-types */
+import { Link } from 'react-router-dom';
 
-import { Link } from 'react-router-dom'
-
-const JobCard = () => {
+const JobCard = ({ job= {} } ) => {
   return (
     <Link
-      to={`/job/1`}
-      className='w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md hover:scale-[1.05] transition-all'
+      to={`/job/${job?._id}`}
+      className="w-full max-w-sm p-4 bg-white/30  hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-red-500 rounded-2xl shadow-lg hover:scale-105 transform transition-transform duration-300"
     >
-      <div className='flex items-center justify-between'>
-        <span className='text-xs font-light text-gray-800 '>
-          Deadline: 28/05/2024
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs font-medium text-white">
+          Deadline: {new Date(job?.deadline).toLocaleDateString()}
         </span>
-        <span className='px-3 py-1 text-[8px] text-blue-800 uppercase bg-blue-200 rounded-full '>
-          Web Development
+        <span className="px-2 py-1 text-[10px] text-white uppercase bg-purple-700 rounded-full">
+          {job?.category}
         </span>
       </div>
 
-      <div>
-        <h1 className='mt-2 text-lg font-semibold text-gray-800 '>
-          E-commerce Website Development
+      <div className="bg-white p-4 rounded-2xl">
+        <h1 className="text-lg font-semibold text-gray-800">
+          {job?.job_title}
         </h1>
-
-        <p className='mt-2 text-sm text-gray-600 '>
-          Dramatically redefine bleeding-edge infrastructures after
-          client-focused value. Intrinsicly seize user-centric partnerships
-          through out-of-the-box architectures. Distinctively.
+        <p className="mt-2 text-sm text-gray-600">
+          {job?.description?.length > 100
+            ? `${job?.description.substring(0, 100)}...`
+            : job.description}
         </p>
-        <p className='mt-2 text-sm font-bold text-gray-600 '>
-          Range: $500 - $600
-        </p>
-        <p className='mt-2 text-sm font-bold text-gray-600 '>Total Bids: 0</p>
+        <div className="mt-4">
+          <p className="text-sm font-bold text-gray-700">
+            Range: ${job?.min_price} - ${job?.max_price}
+          </p>
+          <p className="text-sm font-bold text-gray-700">
+            Total Bids: {job?.totalBid}
+          </p>
+        </div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default JobCard
+export default JobCard;
